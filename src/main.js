@@ -1,10 +1,50 @@
 import './style.css'
 
-const question = document.querySelector("#question");
-const answers = document.querySelectorAll(".answer-btn");
-const previousBtn = document.querySelector(".footer-btn:first-child");
-const nextBtn = document.querySelector(".footer-btn:last-child");
+// Creamos el contenedor principal
+const app = document.querySelector("#app");
+const container = document.createElement("div");
+container.className = "container";
+app.appendChild(container);
 
+// Creamos el título
+const title = document.createElement("h2");
+title.id = "text";
+title.textContent = "Quiz Question";
+container.appendChild(title);
+
+// Creamos el párrafo de la pregunta
+const question = document.createElement("p");
+question.id = "question";
+container.appendChild(question);
+
+// Creamos el contenedor de respuestas
+const answersContainer = document.createElement("div");
+answersContainer.className = "container-answers";
+container.appendChild(answersContainer);
+
+// Creamos los botones de respuesta
+const answers = [];
+for (let i = 0; i < 4; i++) {
+  const btn = document.createElement("button");
+  btn.className = "answer-btn";
+  answersContainer.appendChild(btn);
+  answers.push(btn);
+}
+
+// Creamos el footer con los botones Previous y Next
+const footer = document.createElement("div");
+footer.className = "container-footer";
+container.appendChild(footer);
+
+const previousBtn = document.createElement("button");
+previousBtn.className = "footer-btn";
+previousBtn.textContent = "Previous";
+footer.appendChild(previousBtn);
+
+const nextBtn = document.createElement("button");
+nextBtn.className = "footer-btn";
+nextBtn.textContent = "Next";
+footer.appendChild(nextBtn);
 
 const MOCKDATA = [
   {
@@ -28,6 +68,7 @@ const MOCKDATA = [
 let index = 0;
 
 question.textContent = MOCKDATA[0].pregunta;
+updateAnswers();
 function updateAnswers() {  
   answers.forEach((btn, i) => {
     btn.textContent = MOCKDATA[index].respuestas[i];
