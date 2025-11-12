@@ -1,6 +1,7 @@
 import './style.css'
 
 const question = document.querySelector("#question");
+const answers = document.querySelectorAll(".answer-btn");
 const previousBtn = document.querySelector(".footer-btn:first-child");
 const nextBtn = document.querySelector(".footer-btn:last-child");
 
@@ -9,9 +10,22 @@ const posibleQuestions = ["What is the capital of France",
   "Who wrote Romeo and Juliet",
   "How many planets are there in our solar system"];
 
+const posibleAnswers = [
+  ["London", "Berlin", "Paris", "Madrid"], 
+  ["Amazonas", "Nilo", "Yagnsté", "Miño"], 
+  ["Jane Austen", "Cervantes", "William Shakespeare", "Charles Dickens"], 
+  ["7", "8", "9", "10"]];
+
 
 let index = 0;
+
 question.textContent = posibleQuestions[index];
+function updateAnswers() {  
+  answers.forEach((btn, i) => {
+    btn.textContent = posibleAnswers[index][i];
+  });
+}
+
 
 function updateButtons() {
   // Si estamos en la primera pregunta, deshabilitar el botón "Previous"
@@ -35,6 +49,7 @@ previousBtn.addEventListener("click", () => {
     index--;
     question.textContent = posibleQuestions[index];
     updateButtons();
+    updateAnswers();
   }
 });
 
@@ -44,6 +59,7 @@ nextBtn.addEventListener("click", () => {
     index++;
     question.textContent = posibleQuestions[index];
     updateButtons();
+    updateAnswers();
   }
 });
 
