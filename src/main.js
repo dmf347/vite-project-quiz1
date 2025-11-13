@@ -46,22 +46,30 @@ nextBtn.className = "footer-btn";
 nextBtn.textContent = "Next";
 footer.appendChild(nextBtn);
 
+const greenColor = "#3CB371";
+const whiteColor = "#FFFFFF";
+
 const MOCKDATA = [
   {
     pregunta: "What is the capital of France",
-    respuestas: ["London", "Berlin", "Paris", "Madrid"]
+    respuestas: ["London", "Berlin", "Paris", "Madrid"],
+    selection: null,
+
   },
   {
     pregunta: "What is the longest river in the world",
-    respuestas: ["Amazonas", "Nilo", "Yagnsté", "Miño"]
+    respuestas: ["Amazonas", "Nilo", "Yagnsté", "Miño"],
+    selection: null
   },
   {
     pregunta: "Who wrote Romeo and Juliet",
-    respuestas: ["Jane Austen", "Cervantes", "William Shakespeare", "Charles Dickens"]
+    respuestas: ["Jane Austen", "Cervantes", "William Shakespeare", "Charles Dickens"],
+    selection: null
   },
   {
     pregunta: "How many planets are there in our solar system",
-    respuestas: ["7", "8", "9", "10"]
+    respuestas: ["7", "8", "9", "10"],
+    selection: null
   }
 ]
 
@@ -69,9 +77,16 @@ let index = 0;
 
 question.textContent = MOCKDATA[0].pregunta;
 updateAnswers();
+
 function updateAnswers() {  
   answers.forEach((btn, i) => {
     btn.textContent = MOCKDATA[index].respuestas[i];
+    
+    btn.style.backgroundColor = whiteColor;
+
+    if (MOCKDATA[index].selection === btn.textContent) {
+      btn.style.backgroundColor = greenColor;
+    }
   });
 }
 
@@ -111,6 +126,19 @@ nextBtn.addEventListener("click", () => {
     updateAnswers();
   }
 });
+
+const allButtons = document.querySelectorAll(".answer-btn");
+
+allButtons.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    allButtons.forEach((b) => b.style.backgroundColor = whiteColor);
+
+    btn.style.backgroundColor = greenColor;
+    MOCKDATA[index].selection = btn.textContent;
+  });
+  
+});
+
 
 // Actualizamos los botones al cargar
 updateButtons();
