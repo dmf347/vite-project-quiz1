@@ -41,6 +41,12 @@ previousBtn.className = "footer-btn";
 previousBtn.textContent = "Previous";
 footer.appendChild(previousBtn);
 
+const check = document.createElement("button");
+check.className = "footer-btn";
+check.textContent = "Check";
+check.disabled = true;
+footer.appendChild(check);
+
 const nextBtn = document.createElement("button");
 nextBtn.className = "footer-btn";
 nextBtn.textContent = "Next";
@@ -49,27 +55,32 @@ footer.appendChild(nextBtn);
 const greenColor = "#3CB371";
 const whiteColor = "#FFFFFF";
 
+
 const MOCKDATA = [
   {
     pregunta: "What is the capital of France",
     respuestas: ["London", "Berlin", "Paris", "Madrid"],
     selection: null,
+    correct: "Paris"
 
   },
   {
     pregunta: "What is the longest river in the world",
     respuestas: ["Amazonas", "Nilo", "Yagnsté", "Miño"],
-    selection: null
+    selection: null,
+    correct: "Amazonas"
   },
   {
     pregunta: "Who wrote Romeo and Juliet",
     respuestas: ["Jane Austen", "Cervantes", "William Shakespeare", "Charles Dickens"],
-    selection: null
+    selection: null,
+    correct: "William Shakespeare"
   },
   {
     pregunta: "How many planets are there in our solar system",
-    respuestas: ["7", "8", "9", "10"],
-    selection: null
+    respuestas: [7, 8, 9, 10],
+    selection: null,
+    correct: 8
   }
 ]
 
@@ -135,8 +146,21 @@ allButtons.forEach((btn) => {
 
     btn.style.backgroundColor = greenColor;
     MOCKDATA[index].selection = btn.textContent;
+
+    const allAnswered = MOCKDATA.every(q => q.selection !== null);
+    check.disabled = !allAnswered;
   });
   
+});
+
+check.addEventListener("click", () => {
+  let correctas = 0;
+  MOCKDATA.forEach((q) => {
+    if (String(q.selection) === String(q.correct)) {
+      correctas++;
+    }
+  });
+  alert(`Has respondido ${correctas} preguntas correctamente de 4.`)
 });
 
 
